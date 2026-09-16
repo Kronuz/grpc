@@ -5690,6 +5690,16 @@ grpc_upb_proto_reflection_library(
     deps = ["@grpc_proto//:channelz_proto"],
 )
 
+grpc_upb_proto_library(
+    name = "autosharding_upb",
+    deps = ["@autosharding//:autosharding_proto"],
+)
+
+grpc_upb_proto_reflection_library(
+    name = "autosharding_upbdefs",
+    deps = ["@autosharding//:autosharding_proto"],
+)
+
 WELL_KNOWN_PROTO_TARGETS = [
     "any",
     "duration",
@@ -5709,6 +5719,11 @@ filegroup(
         "etc/roots.pem",
     ],
     visibility = ["//visibility:public"],
+)
+
+grpc_cc_proto_library(
+    name = "autosharding_cc_proto",
+    deps = ["@autosharding//:autosharding_proto"],
 )
 
 grpc_cc_proto_library(
@@ -5734,6 +5749,12 @@ grpc_cc_proto_library(
 grpc_cc_proto_library(
     name = "rls_config_cc_proto",
     deps = ["@grpc_proto//:rls_config_proto"],
+)
+
+grpc_cc_grpc_library(
+    name = "autosharding_cc_grpc",
+    srcs = ["@autosharding//:autosharding_proto"],
+    deps = [":autosharding_cc_proto"],
 )
 
 grpc_cc_grpc_library(
